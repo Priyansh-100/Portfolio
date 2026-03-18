@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Priyansh Singh Kathayat — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#05050a;--surface:#0d0d15;--card:#11111c;--accent:#00ffb3;--accent2:#00b8ff;--text:#e2e2f0;--muted:#55556a;--border:#1a1a2e;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Mono',monospace;background:var(--bg);color:var(--text);overflow-x:hidden;cursor:none;}
+.cur,.cur-ring{position:fixed;pointer-events:none;z-index:9999;border-radius:50%;transform:translate(-50%,-50%);}
+.cur{width:8px;height:8px;background:var(--accent);}
+.cur-ring{width:32px;height:32px;border:1px solid var(--accent);opacity:.4;transition:all .2s ease;z-index:9998;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:60px 60px;opacity:.3;pointer-events:none;z-index:0;}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3rem;background:rgba(5,5,10,.88);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;color:var(--accent);}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s;}
+.nav-links a:hover{color:var(--accent);}
+#hero{min-height:100vh;display:flex;align-items:center;padding:7rem 3rem 4rem;position:relative;z-index:1;}
+.hero-inner{max-width:900px;}
+.hero-tag{display:inline-flex;align-items:center;gap:.6rem;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);border:1px solid rgba(0,255,179,.4);padding:.35rem .9rem;border-radius:999px;margin-bottom:2rem;animation:fadeUp .8s ease both;}
+.hero-tag .dot{width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite;}
+.hero-name{font-family:'Syne',sans-serif;font-size:clamp(3rem,8vw,6.5rem);font-weight:800;line-height:.95;letter-spacing:-.04em;animation:fadeUp .8s .1s ease both;}
+.hero-name .accent{color:var(--accent);}
+.hero-sub{font-size:.85rem;color:var(--muted);margin-top:1.6rem;max-width:520px;line-height:1.9;animation:fadeUp .8s .2s ease both;}
+.hero-ctas{display:flex;gap:1rem;margin-top:2.5rem;flex-wrap:wrap;animation:fadeUp .8s .3s ease both;}
+.btn-primary{display:inline-flex;align-items:center;gap:.6rem;background:var(--accent);color:#000;font-family:'DM Mono',monospace;font-size:.74rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:.85rem 1.8rem;border:none;border-radius:4px;cursor:pointer;text-decoration:none;transition:transform .2s,box-shadow .2s;}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,255,179,.3);}
+.btn-ghost{display:inline-flex;align-items:center;gap:.6rem;background:transparent;color:var(--text);font-family:'DM Mono',monospace;font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;padding:.85rem 1.8rem;border:1px solid var(--border);border-radius:4px;cursor:pointer;text-decoration:none;transition:border-color .2s,color .2s;}
+.btn-ghost:hover{border-color:var(--accent2);color:var(--accent2);}
+.hero-stats{display:flex;gap:3rem;margin-top:4rem;animation:fadeUp .8s .4s ease both;}
+.stat{border-left:2px solid var(--accent);padding-left:1rem;}
+.stat-num{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:var(--accent);}
+.stat-label{font-size:.65rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-top:.2rem;}
+.orb{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;animation:float 9s ease-in-out infinite;}
+.orb1{width:420px;height:420px;background:rgba(0,255,179,.06);top:5%;right:3%;z-index:0;}
+.orb2{width:320px;height:320px;background:rgba(0,184,255,.05);bottom:15%;right:18%;animation-delay:-5s;z-index:0;}
+section{position:relative;z-index:1;padding:5rem 3rem;}
+.section-label{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:.8rem;}
+.section-title{font-family:'Syne',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:800;letter-spacing:-.03em;margin-bottom:3rem;}
+#about{background:var(--surface);}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
+.about-text p{font-size:.83rem;line-height:1.95;color:#a0a0bc;margin-bottom:1rem;}
+.about-info{display:flex;flex-direction:column;gap:.8rem;}
+.info-row{display:flex;align-items:center;gap:1rem;padding:.85rem 1.2rem;background:var(--card);border:1px solid var(--border);border-radius:6px;font-size:.78rem;}
+.info-row .lbl{color:var(--muted);min-width:80px;flex-shrink:0;}
+.info-row a{color:var(--accent2);text-decoration:none;}
+.info-row a:hover{text-decoration:underline;}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;}
+.skill-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1.4rem 1.2rem;transition:border-color .25s,transform .2s;position:relative;overflow:hidden;}
+.skill-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .3s;}
+.skill-card:hover::before{transform:scaleX(1);}
+.skill-card:hover{border-color:rgba(0,255,179,.3);transform:translateY(-3px);}
+.skill-cat{font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:.7rem;}
+.skill-list{font-size:.78rem;color:#a0a0bc;line-height:1.9;}
+#projects{background:var(--surface);}
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1.5rem;}
+.project-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.8rem;transition:border-color .25s,transform .2s,box-shadow .25s;display:flex;flex-direction:column;gap:1rem;}
+.project-card:hover{border-color:rgba(0,184,255,.4);transform:translateY(-4px);box-shadow:0 20px 40px rgba(0,0,0,.4);}
+.project-header{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;}
+.project-name{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;}
+.project-link{color:var(--accent2);font-size:.7rem;text-decoration:none;border:1px solid rgba(0,184,255,.3);padding:.3rem .7rem;border-radius:4px;white-space:nowrap;transition:background .2s;flex-shrink:0;}
+.project-link:hover{background:rgba(0,184,255,.1);}
+.project-tags{display:flex;flex-wrap:wrap;gap:.5rem;}
+.tag{font-size:.65rem;background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--muted);padding:.25rem .65rem;border-radius:3px;}
+.project-bullets{padding-left:1.1rem;}
+.project-bullets li{font-size:.76rem;color:#7a7a99;line-height:1.9;margin-bottom:.2rem;}
+.project-date{font-size:.68rem;color:var(--muted);}
+.timeline{display:flex;flex-direction:column;}
+.tl-item{display:flex;gap:2rem;padding:2rem 0;border-bottom:1px solid var(--border);}
+.tl-item:last-child{border-bottom:none;}
+.tl-date{min-width:140px;font-size:.7rem;color:var(--accent);letter-spacing:.05em;padding-top:.2rem;}
+.tl-content h3{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;margin-bottom:.3rem;}
+.tl-content .org{font-size:.75rem;color:var(--accent2);margin-bottom:.8rem;}
+.tl-content ul{padding-left:1.2rem;}
+.tl-content li{font-size:.78rem;color:#8888a8;line-height:1.85;margin-bottom:.25rem;}
+#education{background:var(--surface);}
+.edu-grid{display:flex;flex-direction:column;gap:1rem;}
+.edu-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1.5rem 1.8rem;display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;transition:border-color .2s;}
+.edu-card:hover{border-color:rgba(0,255,179,.25);}
+.edu-l h3{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;margin-bottom:.3rem;}
+.edu-l p{font-size:.78rem;color:var(--muted);}
+.edu-r{text-align:right;flex-shrink:0;}
+.edu-r .yr{font-size:.7rem;color:var(--accent);margin-bottom:.3rem;}
+.edu-r .grade{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;}
+.edu-r .glabel{font-size:.65rem;color:var(--muted);}
+.cert-card{display:inline-flex;align-items:center;gap:1.5rem;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1.5rem 2rem;transition:border-color .2s;}
+.cert-card:hover{border-color:rgba(0,255,179,.3);}
+.cert-icon{width:44px;height:44px;background:rgba(0,255,179,.1);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.cert-title{font-family:'Syne',sans-serif;font-weight:700;margin-bottom:.25rem;}
+.cert-issuer{font-size:.75rem;color:var(--muted);margin-bottom:.4rem;}
+.cert-link{font-size:.72rem;color:var(--accent2);text-decoration:none;}
+.cert-link:hover{text-decoration:underline;}
+#contact{background:var(--surface);text-align:center;}
+#contact .section-title{margin-bottom:1rem;}
+#contact>p{font-size:.85rem;color:var(--muted);margin-bottom:2.5rem;}
+.contact-links{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;}
+.contact-link{display:inline-flex;align-items:center;gap:.6rem;font-size:.74rem;color:var(--text);text-decoration:none;border:1px solid var(--border);padding:.7rem 1.4rem;border-radius:6px;transition:border-color .2s,color .2s;}
+.contact-link:hover{border-color:var(--accent);color:var(--accent);}
+footer{text-align:center;padding:2rem;font-size:.7rem;color:var(--muted);border-top:1px solid var(--border);position:relative;z-index:1;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-28px);}}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+@media(max-width:768px){nav{padding:1rem 1.5rem;}.nav-links{display:none;}#hero{padding:6rem 1.5rem 3rem;}.hero-stats{gap:1.5rem;}section{padding:4rem 1.5rem;}.about-grid{grid-template-columns:1fr;}.edu-card{flex-direction:column;}.edu-r{text-align:left;}.tl-item{flex-direction:column;gap:.5rem;}.tl-date{min-width:auto;}}
+</style>
+</head>
+<body>
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="curRing"></div>
+
+<nav>
+  <div class="nav-logo">PSK</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#training">Training</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="hero-inner">
+    <div class="hero-tag"><span class="dot"></span> Available for opportunities</div>
+    <h1 class="hero-name">Priyansh Singh<br><span class="accent">Kathayat</span></h1>
+    <p class="hero-sub">B.Tech CSE student at Lovely Professional University — building full-stack web apps, real-time systems &amp; algorithmic solutions with clean, scalable code.</p>
+    <div class="hero-ctas">
+      <a class="btn-primary" href="#" onclick="return false;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 16V4m0 12-4-4m4 4 4-4M4 20h16"/></svg>
+        Download My CV
+      </a>
+      <a class="btn-ghost" href="#projects">View Projects</a>
+      <a class="btn-ghost" href="#contact">Get in Touch</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">8.2</div><div class="stat-label">CGPA</div></div>
+      <div class="stat"><div class="stat-num">2+</div><div class="stat-label">Projects</div></div>
+      <div class="stat"><div class="stat-num">5+</div><div class="stat-label">Technologies</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="section-label reveal">// 01. About</div>
+  <div class="section-title reveal">Who I Am</div>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>I'm a Computer Science undergraduate at Lovely Professional University, passionate about crafting robust software — from real-time web applications to data-driven tools.</p>
+      <p>My journey spans full-stack web development, algorithmic problem-solving, and working with databases and cloud services. I love turning ideas into working products with clean code and intuitive interfaces.</p>
+      <p>Currently deepening my expertise in backend systems, real-time data pipelines, and data analysis with Python — always looking for the next challenge.</p>
+    </div>
+    <div class="about-info reveal">
+      <div class="info-row"><span class="lbl">Location</span><span>Khatima, Uttarakhand, IN</span></div>
+      <div class="info-row"><span class="lbl">Email</span><a href="mailto:priyanshkathayat@gmail.com">priyanshkathayat@gmail.com</a></div>
+      <div class="info-row"><span class="lbl">Phone</span><span>+91 8937840170</span></div>
+      <div class="info-row"><span class="lbl">LinkedIn</span><a href="https://linkedin.com/in/priyansh-s-k" target="_blank">priyansh-s-k</a></div>
+      <div class="info-row"><span class="lbl">GitHub</span><a href="https://github.com/Priyansh-100" target="_blank">Priyansh-100</a></div>
+      <div class="info-row"><span class="lbl">Degree</span><span>B.Tech CSE · 2023–2027</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="section-label reveal">// 02. Skills</div>
+  <div class="section-title reveal">Tech Stack</div>
+  <div class="skills-grid">
+    <div class="skill-card reveal"><div class="skill-cat">Languages</div><div class="skill-list">Python<br>Java<br>JavaScript<br>SQL<br>HTML &amp; CSS</div></div>
+    <div class="skill-card reveal"><div class="skill-cat">Frameworks &amp; Libraries</div><div class="skill-list">Flask<br>Node.js<br>NumPy &amp; Pandas<br>Seaborn &amp; Matplotlib<br>Java Swing</div></div>
+    <div class="skill-card reveal"><div class="skill-cat">Databases &amp; Cloud</div><div class="skill-list">MySQL<br>Firebase Realtime DB<br>Firebase Hosting</div></div>
+    <div class="skill-card reveal"><div class="skill-cat">Tools</div><div class="skill-list">Git &amp; GitHub<br>Leaflet.js<br>LeetCode<br>VS Code</div></div>
+    <div class="skill-card reveal"><div class="skill-cat">Domain Skills</div><div class="skill-list">Web Development<br>Backend Development<br>Real-Time Systems<br>Deployment &amp; Hosting</div></div>
+    <div class="skill-card reveal"><div class="skill-cat">Concepts</div><div class="skill-list">OOP Principles<br>REST APIs<br>Big O Notation<br>BFS / DFS<br>Sorting Algorithms</div></div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="section-label reveal">// 03. Projects</div>
+  <div class="section-title reveal">What I've Built</div>
+  <div class="projects-grid">
+    <div class="project-card reveal">
+      <div class="project-header"><div class="project-name">Real-Time Bus Tracking System</div><a class="project-link" href="https://github.com/Priyansh-100/Routex" target="_blank">↗ Repo</a></div>
+      <div class="project-tags"><span class="tag">Flask</span><span class="tag">Firebase</span><span class="tag">Leaflet.js</span><span class="tag">JavaScript</span></div>
+      <ul class="project-bullets">
+        <li>Tracks buses in real time across devices via GPS &amp; Firebase Realtime Database</li>
+        <li>Live location sync every 2 seconds across all connected clients</li>
+        <li>Interactive map rendering with Leaflet.js</li>
+        <li>Flask backend managing API requests &amp; data flow</li>
+        <li>Deployed with Firebase Hosting</li>
+      </ul>
+      <div class="project-date">Sep 2025</div>
+    </div>
+    <div class="project-card reveal">
+      <div class="project-header"><div class="project-name">Dice Game Simulation</div><a class="project-link" href="https://github.com/Priyansh-100/Dice-Game" target="_blank">↗ Repo</a></div>
+      <div class="project-tags"><span class="tag">Java</span><span class="tag">Java Swing</span><span class="tag">OOP</span></div>
+      <ul class="project-bullets">
+        <li>Multi-player dice game with CLI &amp; full GUI via Java Swing</li>
+        <li>OOP-structured: Player, Dice &amp; GameEngine classes</li>
+        <li>Real-time GUI updates for rolls, scores &amp; round results</li>
+      </ul>
+      <div class="project-date">Jun – Jul 2025</div>
+    </div>
+  </div>
+</section>
+
+<section id="training">
+  <div class="section-label reveal">// 04. Training</div>
+  <div class="section-title reveal">Experience &amp; Training</div>
+  <div class="timeline">
+    <div class="tl-item reveal">
+      <div class="tl-date">Jun – Jul 2025</div>
+      <div class="tl-content">
+        <h3>Summer Training — DSA using Java</h3>
+        <div class="org">CipherSchools</div>
+        <ul>
+          <li>Implemented Arrays, Stacks, Queues, Linked Lists, Trees, and Graphs in Java</li>
+          <li>Mastered Merge Sort, Quick Sort, BFS, and DFS for computational problem solving</li>
+          <li>Applied Big O notation for time &amp; space complexity analysis</li>
+          <li>Solved numerous challenges on LeetCode using learned concepts</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="section-label reveal">// 05. Education</div>
+  <div class="section-title reveal">Academic Background</div>
+  <div class="edu-grid">
+    <div class="edu-card reveal">
+      <div class="edu-l"><h3>Lovely Professional University</h3><p>B.Tech — Computer Science &amp; Engineering · Phagwara, Punjab</p></div>
+      <div class="edu-r"><div class="yr">2023 – 2027</div><div class="grade">8.2</div><div class="glabel">CGPA</div></div>
+    </div>
+    <div class="edu-card reveal">
+      <div class="edu-l"><h3>Nosegay Public School</h3><p>12th Grade · Khatima, Uttarakhand</p></div>
+      <div class="edu-r"><div class="yr">2022 – 2023</div><div class="grade">89%</div><div class="glabel">Percentage</div></div>
+    </div>
+    <div class="edu-card reveal">
+      <div class="edu-l"><h3>Nosegay Public School</h3><p>10th Grade · Khatima, Uttarakhand</p></div>
+      <div class="edu-r"><div class="yr">2020 – 2021</div><div class="grade">78%</div><div class="glabel">Percentage</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="certifications">
+  <div class="section-label reveal">// 06. Certifications</div>
+  <div class="section-title reveal">Credentials</div>
+  <div class="cert-card reveal">
+    <div class="cert-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00ffb3" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M8.5 14.5 8 21l4-2 4 2-.5-6.5"/></svg></div>
+    <div>
+      <div class="cert-title">Problem Solving with DSA</div>
+      <div class="cert-issuer">CipherSchools · June 2025</div>
+      <a class="cert-link" href="https://www.cipherschools.com/certificate/preview?id=6881f4bdca64e035786b1698" target="_blank">View Certificate ↗</a>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-label" style="display:inline-block">// 07. Contact</div>
+  <div class="section-title">Let's Connect</div>
+  <p>Open to internships, collaborations, and interesting conversations about tech.</p>
+  <div class="contact-links">
+    <a class="contact-link" href="mailto:priyanshkathayat@gmail.com"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>Email Me</a>
+    <a class="contact-link" href="https://github.com/Priyansh-100" target="_blank"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.72-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .1-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02 0 2.04.13 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.23 1.91 1.23 3.22 0 4.61-2.8 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>GitHub</a>
+    <a class="contact-link" href="https://linkedin.com/in/priyansh-s-k" target="_blank"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2zm2-7a2 2 0 1 1 0 4 2 2 0 0 1 0-4z"/></svg>LinkedIn</a>
+    <a class="contact-link" href="tel:+918937840170"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Call Me</a>
+  </div>
+</section>
+
+<footer><p>© 2025 Priyansh Singh Kathayat — Crafted with focus &amp; caffeine</p></footer>
+
+<script>
+const cur=document.getElementById('cur'),ring=document.getElementById('curRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function tick(){rx+=(mx-rx)*.18;ry+=(my-ry)*.18;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(tick);})();
+document.querySelectorAll('a,button,.skill-card,.project-card,.edu-card,.cert-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.transform='translate(-50%,-50%) scale(2.5)';ring.style.transform='translate(-50%,-50%) scale(1.6)';ring.style.opacity='.7';});
+  el.addEventListener('mouseleave',()=>{cur.style.transform='translate(-50%,-50%) scale(1)';ring.style.transform='translate(-50%,-50%) scale(1)';ring.style.opacity='.4';});
+});
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
